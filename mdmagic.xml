@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.5.4.1deb2ubuntu2
+- https://www.phpmyadmin.net
+-
+- Client :  localhost
+- Généré le :  Lun 26 Février 2018 à 13:49
+- Version du serveur :  5.7.21-0ubuntu0.16.04.1
+- Version de PHP :  7.0.27-1+ubuntu16.04.1+deb.sury.org+1
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="mdmagic" collation="utf8_general_ci" charset="utf8">
+            <pma:table name="deck">
+                CREATE TABLE `deck` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `nameDeck` varchar(45) NOT NULL,
+                  `user_id` int(11) NOT NULL,
+                  PRIMARY KEY (`id`,`user_id`),
+                  UNIQUE KEY `id_UNIQUE` (`id`),
+                  UNIQUE KEY `nameDeck_UNIQUE` (`nameDeck`),
+                  KEY `fk_deck_user1_idx` (`user_id`),
+                  CONSTRAINT `fk_deck_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="deckCard">
+                CREATE TABLE `deckCard` (
+                  `deck_id` int(11) NOT NULL,
+                  `card_id` mediumtext NOT NULL,
+                  `number` int(11) NOT NULL,
+                  PRIMARY KEY (`deck_id`),
+                  KEY `fk_deck_has_card_deck_idx` (`deck_id`),
+                  CONSTRAINT `fk_deck_has_card_deck` FOREIGN KEY (`deck_id`) REFERENCES `deck` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="user">
+                CREATE TABLE `user` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `nameUser` varchar(45) DEFAULT NULL,
+                  `pseudo` varchar(45) NOT NULL,
+                  `pass` varchar(45) NOT NULL,
+                  `email` varchar(45) NOT NULL,
+                  `imgUser` varchar(45) DEFAULT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `pass_UNIQUE` (`pass`),
+                  UNIQUE KEY `id_UNIQUE` (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Base de données :  'mdmagic'
+    -->
+    <database name="mdmagic">
+        <!-- Table deck -->
+        <!-- Table deckCard -->
+        <!-- Table user -->
+    </database>
+</pma_xml_export>
