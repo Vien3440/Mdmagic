@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www.mdmagic.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.mdmagic.com$
+RewriteCond %{REQUEST_URI} !web/
+RewriteRule (.*) /web/app_dev.php/$1 [L]
