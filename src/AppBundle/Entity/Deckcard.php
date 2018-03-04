@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Deckcard
 {
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="card_id", type="text", length=16777215, nullable=false)
+     * @ORM\Column(name="card_id", type="integer", nullable=false)
      */
     private $cardId;
 
@@ -27,23 +27,35 @@ class Deckcard
     private $number;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
      * @var \AppBundle\Entity\Deck
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Deck")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Deck")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="deck_id", referencedColumnName="id")
      * })
      */
     private $deck;
 
+    
     function getCardId() {
         return $this->cardId;
     }
 
     function getNumber() {
         return $this->number;
+    }
+
+    function getId() {
+        return $this->id;
     }
 
     function getDeck(): \AppBundle\Entity\Deck {
@@ -58,9 +70,11 @@ class Deckcard
         $this->number = $number;
     }
 
+
     function setDeck(\AppBundle\Entity\Deck $deck) {
         $this->deck = $deck;
     }
+
 
 
 }

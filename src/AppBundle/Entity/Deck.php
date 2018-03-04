@@ -24,22 +24,21 @@ class Deck
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \AppBundle\Entity\User
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
      */
     private $user;
 
+    
     function getNamedeck() {
         return $this->namedeck;
     }
@@ -56,7 +55,6 @@ class Deck
         $this->namedeck = $namedeck;
     }
 
-   
 
     function setUser(\AppBundle\Entity\User $user) {
         $this->user = $user;
